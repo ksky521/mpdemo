@@ -1,7 +1,14 @@
+.DS_Store
+**/.DS_Store
 # Logs
 logs
 *.log
 npm-debug.log*
+
+**/colombo_iplib.txt
+*.dat
+ip-dat
+
 
 # Runtime data
 pids
