@@ -44,7 +44,13 @@ function _json (json, map) {
 
 function _html ($, map, $root) {
   var result = {}
-  _.each(map, (val, key) => {
+
+  var ks = Object.keys(map)
+  if (ks.length === 2 && map.selector && map.handler) {
+    return _tmp(map)
+  }
+
+  function _tmp (val, key) {
     var selector = val.selector
     var handler = val.handler
     if (selector.indexOf('!') !== -1) {
@@ -85,8 +91,10 @@ function _html ($, map, $root) {
         break
     }
 
-    result[key] = rs
-  })
+    key && (result[key] = rs)
+    return rs
+  }
+  _.each(map, _tmp)
   return result
 }
 
