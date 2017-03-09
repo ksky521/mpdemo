@@ -9,11 +9,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.1.5",
     "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
     "fs-extra": "^2.0.0",
     "iconv-lite": "^0.4.15",
     "lodash": "^4.17.4",
+    "moment": "^2.17.1",
     "request": "^2.79.0"
   }
 }

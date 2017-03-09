@@ -3,7 +3,7 @@ var spider = require('../lib/spider')
 
 function fetchProxy () {
   return spider({
-    url: 'http://www.kuaidaili.com/proxylist/1/'
+    url: 'http://www.kuaidaili.com/proxylist/3/'
   }, {
     selector: '#index_free_list tbody tr',
     handler: function ($tr, $) {
@@ -21,5 +21,31 @@ function fetchProxy () {
 }
 
 fetchProxy().then(data => {
-  console.log(data)
+  var len = data.length
+  var succArray = []
+  data.forEach(p => {
+    checkProxy(`http://${p[0]}:${p[1]}`).then(() => {
+      succArray.push(p)
+    }).finally(done).catch(e => void (e))
+  })
+
+  function done () {
+    len--
+    if (len === 0) {
+      console.log(succArray)
+    }
+  }
 })
+
+function checkProxy (proxy) {
+  return spider({
+    url: 'http://www.dytt8.net/index.htm',
+    proxy: proxy,
+    timeout: 5e3,
+    decoding: 'gb2312'
+  }, {
+    items: {
+      selector: '.co_area2 .co_content2 ul a!attr:href'
+    }
+  })
+}
